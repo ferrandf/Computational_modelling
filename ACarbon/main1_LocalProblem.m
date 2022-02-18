@@ -6,8 +6,8 @@
 
 %BAX 1500
 epse = 0.37; epsp = 0.8; rhoS = 2.22e6; K = 3.e-3; qm = 0.4; %Porosity constants, Laumuir's isoterm constants.
-Dp=1.e-7; %Difusion intraparticular
-B=1.35;  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
+Dp=1.e-8; %Difusion intraparticular
+B= 1;  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
 R=0.002; %Radius of the bullet.
 
 c_ext = 1300; %Exterior concentration
@@ -16,7 +16,7 @@ L=@(q) q./(K*(qm-q)); %Laumir's isoterm.
 dL=@(q) qm./(K*(qm-q).^2);
 
 Tfinal = 200;
-dt = 0.1;  
+dt = 0.01;  
 nOfTimeSteps = round(Tfinal/dt);
 
 alpha = Dp*B/R; beta=35*Dp/(R^2);
@@ -34,7 +34,7 @@ figure(1)
 plot(ts,[qR,qb],'-*'), legend('qr','qb'),xlabel('t')
 
 Tfinal = 100;
-dt = 0.1;
+dt = 0.01;
 nOfTimeStepsUnloading = round(Tfinal/dt);
 qbLoading=qb; qRLoading=qR;
 qb = zeros(nOfTimeStepsUnloading+1,1); qR = qb;
