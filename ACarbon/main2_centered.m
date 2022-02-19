@@ -1,17 +1,5 @@
-%Simulation of an AC filter, 1D problem. FD solution with upwind for
-%convective term and forward Euler in time.
-%ToDo: 
-% 1) Revise the code and the FD approximations for the convection-diffusion
-% equation
-% 2) Numerically check the stability condition Courant<=1 (run for
-% dt=1,2,4,10 and observe the stability and accuracy of the solution)
-% 3) Try with a centred approximation for the convective term. Is it stable
-% for any dt?
-% 4) Uncomment the lines for the computation of the AC local problem and
-% the reaction term. Observe the effect of the AC on the HC front velocity
-% 5) Modify the code to compute (i) a loaging of the canister during 30000s
-% and (ii) an unloading of the canister during 10000s 
-
+% Simulation of an AC filter, 1D problem. FD solution with centered 
+% approximation for convective term and forward Euler in time.
 
 %Material parameters
 epse = 0.37; epsp = 0.8; 
@@ -43,10 +31,13 @@ nOfTimeSteps=round(Tfinal/dt);
 C=zeros(N+1,nOfTimeSteps+1); Qb=C; QR=C;
 C(:,1)=c(1:end-1);
 
+%The main difference here is in the term: 
+% velocity *(c(i-1) - c(i+1))/(dx^2)
+
 for n=1:nOfTimeSteps
     i=2:N+1;
 %    sigma = sigmaConstant*((1-epsp)*rhoS+epsp*dL(Qb(i,n)));
-    c(i)=c(i)+dt*(velocity*(c(i-1)-c(i))/dx+nu*(c(i-1)-2*c(i)+c(i+1))/(dx^2));%+dt*sigma.*(L(QR(i,n))-c(i));
+    c(i)=c(i)+dt*(velocity*(c(i-1)-c(i+1))/(dx^2)+nu*(c(i-1)-2*c(i)+c(i+1))/(dx^2));%+dt*sigma.*(L(QR(i,n))-c(i));
     c(1)=c_ext; c(end)=c(end-2);
     C(:,n+1)=c(1:end-1);
     cmL=C(:,n)-L(QR(:,n));
@@ -60,4 +51,3 @@ figure(1), plot(x,C(:,tplots)); title("Dp = " + Dp + " dx = " + dx + " dt = " + 
 % figure(3), plot(x,QR(:,tplots)); title('qR')
 
 Cl=C; Qbl=Qb; QRl=QR;
-

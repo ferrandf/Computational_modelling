@@ -7,7 +7,7 @@
 %BAX 1500
 epse = 0.37; epsp = 0.8; rhoS = 2.22e6; K = 3.e-3; qm = 0.4; %Porosity constants, Laumuir's isoterm constants.
 Dp=[1.e-8]; %Difusion intraparticular
-B=[1.35, 0.2];  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
+B=[1.35, 3];  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
 R=0.002; %Radius of the bullet.
 
 
@@ -39,7 +39,7 @@ for i = 1:length(Dp)
 
         ts = [0:nOfTimeSteps]*dt;
         figure(k)
-        plot(ts,[qR,qb]), legend('qr','qb'),xlabel('t'), title("Dp = " + Dp(i) + "B = " + B(j))
+        plot(ts,[qR,qb],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
         
         Tfinal = 100;
         dt = 0.01;
@@ -59,13 +59,13 @@ for i = 1:length(Dp)
         
         ts = [0:nOfTimeStepsUnloading]*dt;
         figure(k+1)
-        plot(ts,[qRU,qbU]), legend('qr','qb'),xlabel('t'), title("Dp = " + Dp(i) + "B = " + B(j))
+        plot(ts,[qRU,qbU],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
         
         ts = [0:nOfTimeSteps + nOfTimeStepsUnloading+1]*dt;
         figure(k+2)
         qRT = [qRLoading;qRU];
         qbT = [qbLoading;qbU];
-        plot(ts,[qRT,qbT]), legend('qr', 'qb'),xlabel('t'), title("Dp = " + Dp(i) + "B = " + B(j))
+        plot(ts,[qRT,qbT],'-'), legend('qr', 'qb'),xlabel('t'), ylabel('q'), title("Dp = " + Dp(i) + " B = " + B(j))
         k = k+3;
 
     end
