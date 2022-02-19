@@ -16,7 +16,7 @@ Figure 1:
 
 Figure 2:
 
-![dp07b135](https://user-images.githubusercontent.com/32911477/154801898-f1435220-101a-4c21-831a-1dff7ae40889.png) (Figure 2)
+![dp07b135](https://user-images.githubusercontent.com/32911477/154801898-f1435220-101a-4c21-831a-1dff7ae40889.png) 
 
 As we can see, the second figure shows a greater D_p and due to that, the adsorption is significantly faster both mean and boundary concentrations. The first figure clearly explains how the bullet is behaving: initially the concentration in the boundary increases rapidly but the mean one is slower. In 200s it seems both stabilize at one value (qb ≈ qR ≈ 0.3183). Approximately at this value the bullet would be considered to be full of pollutant.
 At 200s, we impose the exterior concentration to be zero. At this point, the bullet starts the desorption of the pollutant, and as expected, the mean value of concentration inside the bullet is the one to decrease slower.
