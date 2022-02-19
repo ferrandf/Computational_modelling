@@ -1,6 +1,6 @@
 %Simulation of an AC filter, 1D problem. FD solution with upwind for
 %convective term and forward Euler in time.
-%ToDo: 
+% ToDo: 
 % 1) Revise the code and the FD approximations for the convection-diffusion
 % equation
 % 2) Numerically check the stability condition Courant<=1 (run for

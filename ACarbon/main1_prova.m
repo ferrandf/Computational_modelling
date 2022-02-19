@@ -1,5 +1,5 @@
 %Solution of the equations for an AC grain (local problem)
-%Explicit method (forward Euler)
+% Explicit method (forward Euler)
 % 1) Run the code and analyze the plots
 % 2) Solve also the unloading problem: load for 200s, and unload (c_ext=0)
 % for 100s

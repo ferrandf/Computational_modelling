@@ -1,7 +1,7 @@
 % Simulation of an AC filter, 1D problem. FD solution with centered 
 % approximation for convective term and forward Euler in time.
 
-%Material parameters
+% Material parameters
 epse = 0.37; epsp = 0.8; 
 rhoS = 2.22e6; 
 K = 3.e-3; qm = 0.4;
