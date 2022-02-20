@@ -47,7 +47,7 @@ The Matlab code `main2FD1Dcanister.m` solves the couples problem, that is the gl
 ``` 
 The lines corresponding to the adsorption and desorption of AC grains are commented, thus the code initially solves just the convection-diffusion equation.
 
-Firstly, we can check the stability condition C = |v|∆t/∆x ≤ 1 (Courant Number) for the convective term, with an upwind approximation. We can easily see that incrementing the Courant Number results in unstability (trying dt = 10 (Figure 6) we can see uncoherent results). We can also see that decreasing the Courant Number far from 1 (for example dt = 1 -> C = 0.25, figure 7) we get what seems to be a good result, but does not reflect the reality of the problem. Note that we are considering diffusion to be nearly zero (we can change the diffusion parameter to see different behaviour), so we would not expect to get diffusion. BUT WE SEE IT!! That "diffusion" is numerical error and does not represent reality.
+Firstly, we can check the stability condition C = |v|∆t/∆x ≤ 1 (Courant Number) for the convective term, with an upwind approximation. We can easily see that incrementing the Courant Number results in unstability (trying dt = 10 (Figure 6) we can see uncoherent results). We can also see that decreasing the Courant Number far from 1 (for example dt = 2 -> C = 0.50, figure 7) we get what seems to be a good result, but does not reflect the reality of the problem. Note that we are considering diffusion to be nearly zero (we can change the diffusion parameter to see different behaviour), so we would not expect to get diffusion. BUT WE SEE IT!! That "diffusion" is numerical error and does not represent reality.
 
 Figure 5: Optimal C = 1 reached with dt = 4:
 
