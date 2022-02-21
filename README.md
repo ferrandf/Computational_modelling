@@ -6,7 +6,7 @@ The convection by air of pollutant, with adsorption and desorption, in an Active
 
 ### `main1LocalProblem.m`
 
-The Matlab code `main1LocalProblem.m` solves the local problem for an AC grain assuming constant exterior concentration `c_ext = 1300 gr/m3`. We'll use Euler method for solving the system of ODEs. The Euler method is an explicit method which can approximate the values of the mean concentration (qb) and concentration on the boundary (qR) of the bullet using desired time step. We can expect order of convergence 1 (O(dt) where dt is the used timestep).
+The Matlab code `main1LocalProblem.m` solves the local problem for an AC grain assuming constant exterior concentration `c_ext = 1300 gr/m3`. We'll use Euler method for solving the system of ODEs. The Euler method is an explicit method which can approximate the values of the mean concentration (qb) and concentration on the boundary (qR) of the bullet using desired time step. We can expect order of convergence 1 (O(dt) where dt is the used timestep). Our equations and method doesn't have a space step to discuss its order of convergence, so there is no meaning to the question.
 
 One first interesting study is trying to know how the material parameters (D_p or Intraparticular Diffusion and B (constant related to the Boundary conditions)) affect the solution (mean and boundary concentrations). To do so, we can plot the Loading (Figures 1+3k) and Unloading (Figures 2+3k) or both (Figures 3+3k) for different D_p and B.
 
@@ -75,9 +75,57 @@ Figure 8:
 ![dt4_centered](https://user-images.githubusercontent.com/32911477/154813953-008948de-1fa8-4a29-b4e2-c381dc81506e.png)
 
 Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Let's find out if we can use the same dt as before.
-We see that we need a larger Tfinal (why??) and a smaller dt. In fact dt = 0.1 is the first one that shows something.
+We see that we need a larger Tfinal = 30000 (why?? Because now we are considering the effect of the active carbon inside the canister, so the pollutant should move relatively slow) and a smaller dt. In fact dt = 0.1 is the first one that shows something. This could be due to the interaction between pollutant and active carbon.
 
-We can actually estimate the velocity of the pollutant front: 
+We can actually estimate the velocity of the pollutant front looking at the plots:
 
-Time that takes the pollutant front to reach the end of the canister: 
+Figure 9 (only global problem -> Tfinal = 100s):
+
+![dp08dt4_glo](https://user-images.githubusercontent.com/32911477/154915316-2ca0dac3-fde1-4754-b348-ccbc9e41e0f3.png)
+
+
+Figure 10 (local and global problem -> Tfinal = 30000s):
+
+![dp08dt01_locglo](https://user-images.githubusercontent.com/32911477/154915188-2880264b-e8b9-49b6-a262-50ff2c9e9463.png)
+
+
+We can see that the pollutant is approximately at x = 0.078 at Tfinal. This gives us a velocity of v = 2.6000e-06 cm/s
+
+With that velocity we can estimate the time that takes to the pollutant to reach the end of the canister: t = 0.1/v ≈ 38462s
+
+Plotting the problem for this amount of time should be sufficient to observe the front reaching x = 0.1: 
+
+
+Figure 11:
+
+![endcanister](https://user-images.githubusercontent.com/32911477/154917759-427510b9-4007-408a-bc25-c91cda02eca2.png)
+
+Let's study the effect of the material and other constant parameters:
+
+- q_m (initially at 0.4): Is the maximum concentration capacity inside the canister (at q = 0.4 the canister is full). Increasing the capacity of the canister should give us a slower transport of pollutant:
+
+FIgure 12:
+
+![qm08_locglo](https://user-images.githubusercontent.com/32911477/154919113-190d9902-f6f2-4449-96e0-b4721b3f091c.png)
+
+We can clearly see that compared to figure 10, the front at Tfinal = 30000s is much more far away from the end of the canister when the q_m is increased (q_m = 0.8).
+
+When we reduce the qm = 0.2, the end of the canister is already reached at T = 30000s:
+
+Figure 13:
+
+![qm02_locglo](https://user-images.githubusercontent.com/32911477/154919726-2c56612d-ba32-495b-87ba-a1418497925a.png)
+
+- K (initially at 3.e-3): This constant is also used when we compute the Longmuir Isoterm (the grater the K the smaller becomes L(q)). We should understand the Longmuir Isoterm as the concentration inside the bullet. With this, we can expect that if we increase the K, then we have more space for pollutant, and so the canister would be full slower:
+
+Figure 14 (K = 10.e-3):
+
+![K10em3](https://user-images.githubusercontent.com/32911477/154921576-637a81ba-a5d5-4494-b59f-d3459f20472a.png)
+
+
+
+
+
+
+
 
