@@ -73,7 +73,8 @@ The file that does this is `main2_centered.m`. We can check that no time step wo
 
 Figure 8:
 
-![dt4_centered](https://user-images.githubusercontent.com/32911477/154813953-008948de-1fa8-4a29-b4e2-c381dc81506e.png)
+![dt001](https://user-images.githubusercontent.com/32911477/155094465-6dadd900-50dd-4463-82c1-bccf9575bdcf.png)
+
 
 Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Lets find out if we can use the same dt as before.
 We see that we need a larger Tfinal = 30000 (why?? Because now we are considering the effect of the active carbon inside the canister, so the pollutant should move relatively slow) and a smaller dt. In fact dt = 0.1 is the first one that shows something. This could be due to the interaction between pollutant and active carbon.
@@ -122,8 +123,17 @@ Figure 13:
 Figure 14 (K = 10.e-3):
 
 ![K10em3](https://user-images.githubusercontent.com/32911477/154921576-637a81ba-a5d5-4494-b59f-d3459f20472a.png)
+
+
+- D_p (initially at 1.e-8): The D_p parameter changes the diffusion inside the bullet, but from a global point of view this doesn't affect the convection of pollutant through the canister. Changing the order of the parameter (D_p = 1.e-5) the plot seems to be the same:
+
+
+
+
                                                                            
-                                                                           
-- B (initially at 1.35): We have already seen the effect of B on the local problem, when the B is greater, the concentration increases significantly on the boundary, but not the mean concentration.
+- B (initially at 1.3514): In the local problem the B is 
+
+
+
 
 
