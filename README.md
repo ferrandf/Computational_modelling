@@ -1,7 +1,8 @@
 # Computational_modelling
 
-## First project: Active Carbon
+First project: Active Carbon
 
+  
 The convection by air of pollutant, with adsorption and desorption, in an Active Carbon (AC) filter can be modelled by the global problem (at canister or bulk scale) (for equations see report).
 
 ### `main1LocalProblem.m`
@@ -74,7 +75,7 @@ Figure 8:
 
 ![dt4_centered](https://user-images.githubusercontent.com/32911477/154813953-008948de-1fa8-4a29-b4e2-c381dc81506e.png)
 
-Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Let's find out if we can use the same dt as before.
+Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Lets find out if we can use the same dt as before.
 We see that we need a larger Tfinal = 30000 (why?? Because now we are considering the effect of the active carbon inside the canister, so the pollutant should move relatively slow) and a smaller dt. In fact dt = 0.1 is the first one that shows something. This could be due to the interaction between pollutant and active carbon.
 
 We can actually estimate the velocity of the pollutant front looking at the plots:
@@ -121,11 +122,8 @@ Figure 13:
 Figure 14 (K = 10.e-3):
 
 ![K10em3](https://user-images.githubusercontent.com/32911477/154921576-637a81ba-a5d5-4494-b59f-d3459f20472a.png)
-
-
-
-
-
-
+                                                                           
+                                                                           
+- B (initially at 1.35): We have already seen the effect of B on the local problem, when the B is greater, the concentration increases significantly on the boundary, but not the mean concentration.
 
 
