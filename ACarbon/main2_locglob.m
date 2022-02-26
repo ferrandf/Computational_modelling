@@ -29,7 +29,7 @@ canisterSize=0.1;%10 cm
 
 L=@(q) q./(K*(qm-q));
 dL=@(q) qm./(K*(qm-q).^2);
-sigmaConstant=((1-epse)/epse)*3*Dp*B/R;
+sigmaConstant= ((1-epse)/epse)*3*Dp*B/R;
 alpha = Dp*B/R; beta=35*Dp/(R^2);
 
 N=50; %number of segments
