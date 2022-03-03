@@ -1,23 +1,13 @@
 %Simulation of an AC filter, 1D problem. FD solution with upwind for
-%convective term and forward Euler in time.
-% ToDo: 
-% 1) Revise the code and the FD approximations for the convection-diffusion
-% equation
-% 2) Numerically check the stability condition Courant<=1 (run for
-% dt=1,2,4,10 and observe the stability and accuracy of the solution)
-% 3) Try with a centred approximation for the convective term. Is it stable
-% for any dt?
-% 4) Uncomment the lines for the computation of the AC local problem and
-% the reaction term. Observe the effect of the AC on the HC front velocity
-% 5) Modify the code to compute (i) a loaging of the canister during 30000s
-% and (ii) an unloading of the canister during 10000s 
+%convective term and forward Euler in time. It solves both global and local
+%problem.
 
 
 %Material parameters
 epse = 0.37; epsp = 0.8; 
 rhoS = 2.22e6; 
 K = 3.e-3; qm = 0.4;
-Dp=1.e-8;
+Dp=1.e-10;
 Kf = 0.6e-2; %0.6 cm/s
 B=Kf/(Dp*rhoS*(1-epsp));
 R=0.002;
@@ -29,7 +19,7 @@ canisterSize=0.1;%10 cm
 
 L=@(q) q./(K*(qm-q));
 dL=@(q) qm./(K*(qm-q).^2);
-sigmaConstant= ((1-epse)/epse)*3*Dp*B/R;
+sigmaConstant = ((1-epse)/epse)*3*Dp*B/R;
 alpha = Dp*B/R; beta=35*Dp/(R^2);
 
 N=50; %number of segments
