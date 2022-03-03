@@ -7,9 +7,9 @@ The convection by air of pollutant, with adsorption and desorption, in an Active
 
 ### `main1LocalProblem.m`
 
-The Matlab code `main1LocalProblem.m` solves the local problem for an AC grain assuming constant exterior concentration `c_ext = 1300 gr/m3`. We'll use Euler method for solving the system of ODEs. The Euler method is an explicit method which can approximate the values of the mean concentration (qb) and concentration on the boundary (qR) of the bullet using desired time step. We can expect order of convergence 1 (O(dt) where dt is the used timestep). Our equations and method doesn't have a space step to discuss its order of convergence, so there is no meaning to the question.
+1(a): The Matlab code `main1LocalProblem.m` solves the local problem for an AC grain assuming constant exterior concentration `c_ext = 1300 gr/m3`. We'll use Euler method for solving the system of ODEs. The Euler method is an explicit method which can approximate the values of the mean concentration (qb) and concentration on the boundary (qR) of the bullet using desired time step. We can expect order of convergence 1 (O(dt) where dt is the used timestep). Our equations and method doesn't have a space step to discuss its order of convergence, so there is no meaning to the question.
 
-One first interesting study is trying to know how the material parameters (D_p or Intraparticular Diffusion and B (constant related to the Boundary conditions)) affect the solution (mean and boundary concentrations). To do so, we can plot the Loading (Figures 1+3k) and Unloading (Figures 2+3k) or both (Figures 3+3k) for different D_p and B.
+1(b) One first interesting study is trying to know how the material parameters (D_p or Intraparticular Diffusion and B (constant related to the Boundary conditions)) affect the solution (mean and boundary concentrations). To do so, we can plot the Loading (Figures 1+3k) and Unloading (Figures 2+3k) or both (Figures 3+3k) for different D_p and B.
 
 We expect to see a faster adsorption/desorption of pollutant as the intraparticular diffusion increases. Both mean and boundary concentrations get affected.
 
@@ -48,7 +48,7 @@ The Matlab code `main2FD1Dcanister.m` solves the couples problem, that is the gl
 ``` 
 The lines corresponding to the adsorption and desorption of AC grains are commented, thus the code initially solves just the convection-diffusion equation.
 
-Firstly, we can check the stability condition C = |v|∆t/∆x ≤ 1 (Courant Number) for the convective term, with an upwind approximation. We can easily see that incrementing the Courant Number results in unstability (trying dt = 10 (Figure 6) we can see uncoherent results). We can also see that decreasing the Courant Number far from 1 (for example dt = 2 -> C = 0.50, figure 7) we get what seems to be a good result, but does not reflect the reality of the problem. Note that we are considering diffusion to be nearly zero (we can change the diffusion parameter to see different behaviour), so we would not expect to get diffusion. BUT WE SEE IT!! That "diffusion" is numerical error and does not represent reality.
+2(a) Firstly, we can check the stability condition C = |v|∆t/∆x ≤ 1 (Courant Number) for the convective term, with an upwind approximation. We can easily see that incrementing the Courant Number results in unstability (trying dt = 10 (Figure 6) we can see uncoherent results). We can also see that decreasing the Courant Number far from 1 (for example dt = 2 -> C = 0.50, figure 7) we get what seems to be a good result, but does not reflect the reality of the problem. Note that we are considering diffusion to be nearly zero (we can change the diffusion parameter to see different behaviour), so we would not expect to get diffusion. BUT WE SEE IT!! That "diffusion" is numerical error and does not represent reality.
 
 Figure 5: Optimal C = 1 reached with dt = 4:
 
@@ -65,7 +65,7 @@ Figure 7: C = 0.50, dt = 2:
 To sum up, choosing ∆t is extremely important, and the Courant Number for explicit methods is a great indicator to at least take a closer look to what the solution looks like and question ourselves if what we are seeing is due to numerical error or real behaviour.
 
 
-Let's try to modify the original upwind approximation and consider a centered approximation for the convective term: 
+2(b) Let's try to modify the original upwind approximation and consider a centered approximation for the convective term: 
 ```
 ∂c/∂x|i = (c_{i+1} - c_{i-1})/∆x^2 + O(∆x^2) (second-order convergence)
 ```
@@ -76,7 +76,7 @@ Figure 8:
 ![dt001](https://user-images.githubusercontent.com/32911477/155094465-6dadd900-50dd-4463-82c1-bccf9575bdcf.png)
 
 
-Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Lets find out if we can use the same dt as before.
+2(c) Returning to the initial upwind approximation, we now can implement the effect of the AC grains (local problem). Check `main2_locglo.m` for the detailed code. Lets find out if we can use the same dt as before.
 We see that we need a larger Tfinal = 30000 (why?? Because now we are considering the effect of the active carbon inside the canister, so the pollutant should move relatively slow) and a smaller dt. In fact dt = 0.1 is the first one that shows something. This could be due to the interaction between pollutant and active carbon.
 
 We can actually estimate the velocity of the pollutant front looking at the plots:
@@ -102,7 +102,7 @@ Figure 11:
 
 ![endcanister](https://user-images.githubusercontent.com/32911477/154917759-427510b9-4007-408a-bc25-c91cda02eca2.png)
 
-Let's study the effect of the material and other constant parameters:
+2(d) Let's study the effect of the material and other constant parameters:
 
 - q_m (initially at 0.4): Is the maximum concentration capacity inside the canister (at q = 0.4 the canister is full). Increasing the capacity of the canister should give us a slower transport of pollutant:
 
@@ -132,6 +132,13 @@ Figure 14 (K = 10.e-3):
 
                                                                            
 - B (initially at 1.3514): In the local problem the B is 
+
+
+
+2(e) It is clear that for the original values of the material parameters, the diffusion is not highly relevant in our solution. Its effect is included in the computation of `\sigmaconstant = ((1-epse)/epse)*3*Dp*B/R`. This constant is equal to 3.4514e-05 with the initial material parameters values. 
+If we, for instance, change the value of D_p close to zero, (strage things happens, D_p = 1.e-10, dt = 0.1, Tfinal = 30000s)!!!!!!!
+
+I believed that the diffusion doesn't effect the global problem (if I compute the main2 global problem without the local one, I don't see a significal change when I modify the value of D_p and B) but it has a small effect on the local one.
 
 
 
