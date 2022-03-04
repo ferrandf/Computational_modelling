@@ -200,7 +200,7 @@ Figure 2.7:
 
 Figure 2.8:
 
-![streamlines](https://user-images.githubusercontent.com/32911477/156818759-2d4bf065-44fa-4f38-b2b8-1d40a62436fb.png)
+![streamlines](https://user-images.githubusercontent.com/32911477/156818900-a7436bf3-6226-45a1-a595-a2c24b3b6523.png)
 
 
 
