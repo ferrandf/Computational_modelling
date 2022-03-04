@@ -30,7 +30,7 @@ nnodes = size(Xe,1);
 Ke=zeros(nnodes);
 fe=zeros(nnodes,1);
 xe = Xe(:,1); ye = Xe(:,2);
-%Bucle en punts d'integraci?
+%Bucle en punts d'integració
 for k=1:length(IPweights)
     Nk=N(k,:);
     Nkxi=Nxi(k,:);

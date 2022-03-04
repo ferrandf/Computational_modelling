@@ -5,14 +5,14 @@ theReferenceElement = createReferenceElement(degree,typeOfElement);
 nOfElementNodes = size(theReferenceElement.N,2);
 figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
-nOfElem1d=10; %20
-[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],nOfElem1d,nOfElem1d); %Definition of the mesh
+nOfElem1d=20; %20
+[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,10,-3,3],nOfElem1d,nOfElem1d); %Definition of the mesh
 figure(2), clf
 PlotMesh(T,X,typeOfElement,'k-',1);
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
-nodesCCD = find(abs(x)<tol|abs(y)<tol|abs(y-1)<tol|abs(x-1)<tol); %Nodes on the Dirichlet boundary
+nodesCCD = find(abs(x)<tol|abs(x-10)<tol); %Nodes on the Dirichlet boundary
 hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
 uCCD=DirichletValue(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
@@ -65,7 +65,7 @@ PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth
 
 %Comparison with analytical solution (if available)
 figure(11)
-[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
+[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,10,-3,3],40,40);
 PlotNodalField(analytical(Xfine),Xfine,Tfine), title('Analytical solution')
 L2error=computeL2error(u,X,T,theReferenceElement)
 
