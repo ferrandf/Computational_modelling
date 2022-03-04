@@ -66,7 +66,7 @@ PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth
 
 %Streamlines
 Tboundary = connectivityMatrixBoundary(T,typeOfElement);
-phi=computeStreamFunction(ux,uy,X,T,Tboundary,theReferenceElement);
+phi=computeStreamFunction(ux,uy,X,T,Tboundary,theReferenceElement); %compute phi
 
 figure(6)
 contourPlot(phi,X,T)
