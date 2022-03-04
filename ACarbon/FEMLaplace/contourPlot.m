@@ -11,4 +11,4 @@ switch size(T,2)
         error('This function work only for linear FEM :-(')
 end
   
-pdecont(p,t,u);
+pdecont(p,t,u,25);

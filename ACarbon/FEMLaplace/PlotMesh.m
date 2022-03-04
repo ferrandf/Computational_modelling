@@ -74,5 +74,6 @@ if nargin==5
    end
 end
 axis('equal')    
-axis('off') 
+axis('off')
+xlabel('x'),ylabel('y')
 hold off 

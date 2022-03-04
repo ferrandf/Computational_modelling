@@ -5,14 +5,16 @@ theReferenceElement = createReferenceElement(degree,typeOfElement);
 nOfElementNodes = size(theReferenceElement.N,2);
 figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
-nOfElem1d=10; %20
-[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],nOfElem1d,nOfElem1d); %Definition of the mesh
+nOfElem1d=20; %20
+%[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],nOfElem1d,nOfElem1d); %Definition of the mesh
+load dom2.mat;
 figure(2), clf
-PlotMesh(T,X,typeOfElement,'k-',1);
+PlotMesh(T,X,typeOfElement,'k-');
+
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
-nodesCCD = find(abs(x)<tol|abs(y)<tol|abs(y-1)<tol|abs(x-1)<tol); %Nodes on the Dirichlet boundary
+nodesCCD = find(abs(x)<tol|abs(x-10)<tol); %Nodes on the Dirichlet boundary
 hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
 uCCD=DirichletValue(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
@@ -62,11 +64,18 @@ PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(Xpg(:,1),Xpg(:,2),Fgp(:,1),Fgp
 figure(5)
 PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth',2), hold off %quiver plots the arrows
 
+%Streamlines
+Tboundary = connectivityMatrixBoundary(T,typeOfElement);
+phi=computeStreamFunction(ux,uy,X,T,Tboundary,theReferenceElement);
+
+figure(6)
+contourPlot(phi,X,T)
+addPlotBoundary(X,Tboundary)
 
 %Comparison with analytical solution (if available)
 figure(11)
-[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
-PlotNodalField(analytical(Xfine),Xfine,Tfine), title('Analytical solution')
+%[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
+PlotNodalField(analytical(X),X,T), title('Analytical solution')
 L2error=computeL2error(u,X,T,theReferenceElement)
 
 
