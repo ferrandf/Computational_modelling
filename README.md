@@ -193,6 +193,9 @@ Figure 2.7:
 
 ![quiv_int](https://user-images.githubusercontent.com/32911477/156816520-ade7e30f-71ed-4a14-8147-d0d6f8bb8fab.png)
 
+![quiv_int_zoom](https://user-images.githubusercontent.com/32911477/156818304-236f5b02-e7d3-4b4d-a205-ea6ab089ce30.png)
+
+
 1(f) Plotting the streamlines:
 
 Figure 2.8:
