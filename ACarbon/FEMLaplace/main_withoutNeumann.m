@@ -1,3 +1,6 @@
+close all
+clear all
+
 %PREPROCES
 %Reference element
 degree = 1; typeOfElement=0; %1=TRI, 0=QUA
@@ -6,8 +9,15 @@ nOfElementNodes = size(theReferenceElement.N,2);
 figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
 nOfElem1d=20; %20
-%[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],nOfElem1d,nOfElem1d); %Definition of the mesh
-load dom2.mat;
+prompt = 'Choose mesh input (0 for regular mesh): ';
+str = input(prompt, 's');
+
+if str == '0'
+    [X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,10,-3,3],nOfElem1d,nOfElem1d); %Definition of the mesh
+else
+    load(str);
+end
+
 figure(2), clf
 PlotMesh(T,X,typeOfElement,'k-');
 
@@ -72,10 +82,10 @@ figure(6)
 contourPlot(phi,X,T)
 addPlotBoundary(X,Tboundary)
 
-%Comparison with analytical solution (if available)
-figure(11)
-%[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
-PlotNodalField(analytical(X),X,T), title('Analytical solution')
-L2error=computeL2error(u,X,T,theReferenceElement)
+% %Comparison with analytical solution (if available)
+% figure(11)
+% %[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
+% PlotNodalField(analytical(X),X,T), title('Analytical solution')
+% L2error=computeL2error(u,X,T,theReferenceElement)
 
 
