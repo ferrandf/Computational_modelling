@@ -1,5 +1,5 @@
 function u=analytical(X)
 
-u = X(:,1);
+u = zeros(size(X(:,1))); %X(:,1);
 
 
