@@ -16,9 +16,9 @@ PlotMesh(T,X,typeOfElement,'k-');
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
-nodesCCD = find(abs(sqrt(x.^2+y.^2)-2)<tol); %Nodes on the Dirichlet boundary
+nodesCCD = find(abs(sqrt(x.^2+y.^2)-2)<tol| abs(x + 0.807396892118366)<tol); %Nodes on the Dirichlet boundary
 hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
-uCCD=DirichletValue(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
+uCCD=DirichletValue_island(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
 
 %Definition of connectivity matrix for Neumann boundary {x=1}
@@ -28,7 +28,7 @@ uCCD=DirichletValue(X(nodesCCD,:)); %is a vector with the prescribed values at t
 % TNeumann=[nodesNeumann(1:end-1),nodesNeumann(2:end)];
 
 %System of equations (without BC)
-[K,f]=computeSystemLaplace(X,T,theReferenceElement,@sourceTerm);
+[K,f]=computeSystemLaplace(X,T,theReferenceElement,@sourceTerm_island);
 
 %Neumann boundary conditions
 %f = f + computefNeumannLinearApproximation(X,TNeumann,@NeumannFunction);
