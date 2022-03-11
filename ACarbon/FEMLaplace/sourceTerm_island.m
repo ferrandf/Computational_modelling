@@ -1,3 +1,4 @@
 function f=sourceTerm_island(X) 
-
-f= 4/940;%abs(X(:,1))/940;% -2*ones(size(X,1));
+alpha = 1; %7.138266024194574e+03;
+T = 940;
+f= alpha/T;%abs(X(:,1))/940;% -2*ones(size(X,1));
