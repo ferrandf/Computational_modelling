@@ -8,19 +8,19 @@ theReferenceElement = createReferenceElement(degree,typeOfElement);
 nOfElementNodes = size(theReferenceElement.N,2);
 %figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
-nOfElem1d=20; %20
-load('river_island.mat')
+nOfElem1d=50; %20
+[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,12,0,15],nOfElem1d,nOfElem1d); %Definition of the mesh
+
+
 figure(2), clf
 PlotMesh(T,X,typeOfElement,'k-');
 
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
-Tboundary = connectivityMatrixBoundary(T,typeOfElement);
-nodesCCD = Tboundary(:,1);
-%nodesCCD = find(abs(sqrt(x.^2+y.^2)-2)<tol); %Nodes on the Dirichlet boundary
+nodesCCD = find((abs(y)<tol & abs(x-9)<1) | (abs(y-15)<tol & abs(x-3)<1 )); %Nodes on the Dirichlet boundary
 hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
-uCCD=DirichletValue_island(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
+uCCD=DirichletValue_ex5(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
 
 %Definition of connectivity matrix for Neumann boundary {x=1}
@@ -30,7 +30,7 @@ uCCD=DirichletValue_island(X(nodesCCD,:)); %is a vector with the prescribed valu
 % TNeumann=[nodesNeumann(1:end-1),nodesNeumann(2:end)];
 
 %System of equations (without BC)
-[K,f]=computeSystemLaplace(X,T,theReferenceElement,@sourceTerm_island);
+[K,f]=computeSystemLaplace(X,T,theReferenceElement,@sourceTerm_ex5);
 
 %Neumann boundary conditions
 %f = f + computefNeumannLinearApproximation(X,TNeumann,@NeumannFunction);
@@ -69,7 +69,7 @@ figure(5)
 PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth',2), hold off %quiver plots the arrows
 
 %Streamlines
-
+Tboundary = connectivityMatrixBoundary(T,typeOfElement);
 phi=computeStreamFunction(ux,uy,X,T,Tboundary,theReferenceElement); %compute phi
 
 figure(6)
@@ -83,6 +83,3 @@ addPlotBoundary(X,Tboundary)
 % L2error=computeL2error(u,X,T,theReferenceElement)
 
 
-  wellpoint = find(abs(x + 4.39583333333)<tol);
-%  R = 6/u(wellpoint);
-% 

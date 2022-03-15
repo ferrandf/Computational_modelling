@@ -29,7 +29,8 @@ figure(1), hold on, plot(XmidSides(flowSides,1),XmidSides(flowSides,2),'r*',Xmid
 u=zeros(nOfComponents,nOfVolumes);
 
 mindx=sqrt(min(Ve)*2);
-dt=0.4*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
+dt=0.1*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
+
 %Try also dt=0.5*...  and dt=0.6*...
 
 nOfTimeSteps=round(finalTime/dt);
