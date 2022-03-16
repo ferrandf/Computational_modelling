@@ -8,7 +8,7 @@ function [X,T] = CreateMesh(elem,nen,dom,npx,npy)
 %   elem: 0 for quadrilatera, 1 for triangles
 %   dom = [x1,x2,y1,y2]:  vertices' coordinates
 %   npx,npy: number of nodes on each direction 
-% Output:   
+% Output:  
 %   X:  nodal coordinates
 %   T:  connectivities
 
