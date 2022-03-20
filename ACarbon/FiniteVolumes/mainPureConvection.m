@@ -7,10 +7,16 @@ velocityFunction=@(X) [ones(size(X,1),1) zeros(size(X,1),1)]; %definition of the
 numericalFnfunction=@numericalNormalFluxPureConvection;
 uInflow=1;
 
-nOfComponents=1; smoothedPlots=1;
+nOfComponents=1; smoothedPlots=0;
 
 %Mesh (X: nodal coordinates, T: connectivity matrix defining the elements/volumes)
-nRef=1; [X,T] = createRectangleMesh(1,3,0,10,0,0.5,20*nRef,nRef);
+nRef=1; 
+%[X,T] = createRectangleMesh(1,3,0,10,0,0.5,20*nRef,nRef);
+typeOfElement = 1;
+nOfElementNodes = 3;
+nOfElem1d = 20;
+[X,T] = createRectangleMesh(typeOfElement,nOfElementNodes,0,12,0,15,nOfElem1d,nOfElem1d); %Definition of the mesh
+
 figure(1), plotMesh(X,T)
 %Faces information, etc
 [elementsForSide,sidesForElement,Tsides,nOfInteriorSides,Ve,Ls,normalVectors,XmidVolumes,XmidSides] = FVpreprocess(X,T);
@@ -21,15 +27,16 @@ velocitySides=(velocityAtNodes(Tsides(:,1),:)+velocityAtNodes(Tsides(:,2),:))/2;
 velocityDotNormals=velocitySides(:,1).*normalVectors(1,:)'+velocitySides(:,2).*normalVectors(2,:)';
 
 %Identification of inflow and outflow boundary
-tol=1.e-10; flowSides=find(abs(XmidSides(:,1)-0)<tol | abs(XmidSides(:,1)-10)<tol )';
+
+tol=1.e-10; flowSides=find( (abs(XmidSides(:,2))<tol & abs(XmidSides(:,1)-10) < 1)| (abs(XmidSides(:,2)-15)<tol & abs(XmidSides(:,1)-2) < 1))';
 impermeableSides=setdiff(nOfInteriorSides+[1:nOfExternalSides],flowSides);
 figure(1), hold on, plot(XmidSides(flowSides,1),XmidSides(flowSides,2),'r*',XmidSides(impermeableSides,1),XmidSides(impermeableSides,2),'b*'), hold off
 
 %Initial Condition
-u=zeros(nOfComponents,nOfVolumes);
+u=ones(nOfComponents,nOfVolumes);
 
 mindx=sqrt(min(Ve)*2);
-dt=0.1*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
+dt=0.6*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
 
 %Try also dt=0.5*...  and dt=0.6*...
 
@@ -57,6 +64,7 @@ for n=1:nOfTimeSteps
     %Update of value at volumes
     u = u - dt*numericalNormalFluxes./nCompVe;
     if mod(n,nStepsU)==0, U=[U;u(1,:)]; end
+    u(u>uInflow)=uInflow; u(u<0)=0;
 end
 
 %__________________________________________________________________________

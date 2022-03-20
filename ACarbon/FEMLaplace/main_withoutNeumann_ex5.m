@@ -3,32 +3,34 @@ clear all
 
 %PREPROCES
 %Reference element
-degree = 1; typeOfElement=1;%0; %1=TRI, 0=QUA
+degree = 1; typeOfElement=0;%0; %1=TRI, 0=QUA
 theReferenceElement = createReferenceElement(degree,typeOfElement);
 nOfElementNodes = size(theReferenceElement.N,2);
 %figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
 nOfElem1d=50; %20
-%[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,12,0,15],nOfElem1d,nOfElem1d); %Definition of the mesh
-pgon = polyshape([0 7.8 7.8 8.2 8.2 12 12 4.2 4.2 3.8 3.8 0],[0 0 10 10 0 0 15 15 5 5 15 15]);
-tr = triangulation(pgon);
-tnodes = tr.Points';
-telements = tr.ConnectivityList';
-model = createpde;
-geometryFromMesh(model,tnodes,telements);
-pdegplot(model)
-m1 = generateMesh(model, 'Hmax', 0.5, 'GeometricOrder','linear');
-X = m1.Nodes; X = X';
-T = m1.Elements; T = T';
+[X,T] = CreateMesh(typeOfElement,nOfElementNodes,[0,12,0,15],nOfElem1d,nOfElem1d); %Definition of the mesh
+
+%Decomment this for magic (and change the typeOfElement to 1)
+% % pgon = polyshape([0 7.8 7.8 8.2 8.2 12 12 4.2 4.2 3.8 3.8 0],[0 0 10 10 0 0 15 15 5 5 15 15]);
+% % tr = triangulation(pgon);
+% % tnodes = tr.Points';
+% % telements = tr.ConnectivityList';
+% % model = createpde;
+% % geometryFromMesh(model,tnodes,telements);
+% % pdegplot(model)
+% % m1 = generateMesh(model, 'Hmax', 0.7, 'GeometricOrder','linear');
+% % X = m1.Nodes; X = X';
+% % T = m1.Elements; T = T';
 
 
 figure(2), clf
-%PlotMesh(T,X,typeOfElement,'k-');
-PlotMesh(T,X,1,'k-');
+PlotMesh(T,X,typeOfElement,'k-');
+
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
-nodesCCD = find((abs(y)<tol & abs(x-10)<0.5) | (abs(y-15)<tol & abs(x-2)<0.5 )); %Nodes on the Dirichlet boundary
+nodesCCD = find((abs(y)<tol & abs(x-10)<1) | (abs(y-15)<tol & abs(x-2)<1 )); %Nodes on the Dirichlet boundary
 hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
 uCCD=DirichletValue_ex5(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
