@@ -2,7 +2,7 @@
 
 ## First project: Active Carbon
 
-### First assigment:
+### First assignment:
   
 The convection by air of pollutant, with adsorption and desorption, in an Active Carbon (AC) filter can be modelled by the global problem (at canister or bulk scale) (for equations see report).
 
@@ -142,7 +142,28 @@ If we, for instance, change the value of D_p close to zero, (strage things happe
 I believed that the diffusion doesn't effect the global problem (if I compute the main2 global problem without the local one, I don't see a significal change when I modify the value of D_p and B) but it has a small effect on the local one.
 
 
-### Second assigment
+3.
+
+4(a) For different time steps, we should see changes in the stability of the solution. For example, for dt = 0.4 * 0.5 (= 0.4 * mindx), the solution is stable and we obtain the following plot:
+
+![convection34](https://user-images.githubusercontent.com/32911477/158431514-51a5630c-8164-421c-b13d-fd2506ef3fbb.jpg)
+
+
+What happens if we increase the time step? This plot shows it: (dt = 0.6 * mindx)
+
+![convection09](https://user-images.githubusercontent.com/32911477/158432822-5cf4e011-2edc-41a5-9d9d-7ec1b9e230a0.jpg)
+
+We can clearly see that we obtain values greater than 1, impossible from a realistic point of view.
+
+And if the time step is very small? We get artificial diffusion due to numerical errors.
+
+![convection93](https://user-images.githubusercontent.com/32911477/158433653-89a2d92a-948d-4bd2-a3bb-18db846c9e84.jpg)
+
+
+5(a) 
+
+
+### Second assignment
 
 #### `main_withoutNeumann.m`
 
