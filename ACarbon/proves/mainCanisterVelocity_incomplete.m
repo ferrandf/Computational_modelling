@@ -64,8 +64,8 @@ else %LagrangeMultipliers
 end
 
 [ux,uy] = computeGradientSmoothing(u,X,T,theReferenceElement);
-ux = ux/12;
-uy = uy/12;
+ux = ux/10.95; %ux is very small (its square is even smaller) and uy is close to 12 at the boundaries. This makes the velocity wiith ||v|| close to one.
+uy = uy/10.95;
 %
 %
 
