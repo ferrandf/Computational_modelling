@@ -6,10 +6,26 @@
 % parameter.chi = 1.75;  
 % parameter.diff = 0.15;
 
+%pack1:
 parameter.visc      = 10;    
 parameter.chi       = 0.05;
-parameter.eta       = 0.1;
+parameter.eta       = 0.5;
 
+% %pack2:
+% parameter.visc      = 5;    
+% parameter.chi       = 0.05;
+% parameter.eta       = 0.1;
+
+%---------------------%
+
+%new parameters for the adhesion part:
+
+parameters.Da = 0.2;
+parameters.gamma = 1/150;
+parameters.Sa = 1/50;
+
+
+%---------------------%
 
 parameter.kd   = 0.1;  
 parameter.kp   = 0.1;
@@ -28,8 +44,8 @@ buffer = 0.3;
 %-----------------------------------------------------------------------
 % ALE parameters
 
-parameter.V0 = 0.55;
-parameter.coeff1 = 0.12;
+parameter.V0 = 0.55; 
+parameter.coeff1 = 0.12; 
 
 %-----------------------------------------------------------------------
 % Eta parameters
@@ -52,7 +68,7 @@ parameter.t_chemotaxis = 450;
 
 parameter.theta = 1/2;
 parameter.Dt = 0.4;
-parameter.tEnd = 600; 
+parameter.tEnd = 300; 
 parameter.nSteps= parameter.tEnd / parameter.Dt;  
 parameter.nDib = 10;
 parameter.t = 0:parameter.Dt:parameter.tEnd;
