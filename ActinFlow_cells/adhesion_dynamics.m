@@ -19,9 +19,9 @@ ind = cellinfo{1}.meshparam.ind;
 C1 = transportMatrices_C_actin(cellinfo);
  
 A = A_aux;
-A(ind,ind) = A(ind,ind) + theta*C1 + theta*M/tau_s;
+A(ind,ind) = A(ind,ind) + theta*C1 + theta*M*gamma;
 B = B_aux;
-B(ind,ind) = B(ind,ind) - (1-theta)*C1 + (theta-1)*M/tau_s  ;
+B(ind,ind) = B(ind,ind) - (1-theta)*C1 + (theta-1)*M*gamma  ;
 
 rhs = B*cellinfo{1}.meshparam.DOFrho_vec + r*source_rhs;
 

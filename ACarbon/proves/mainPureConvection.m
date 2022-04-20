@@ -35,7 +35,7 @@ figure(1), plotMesh(X,T)
 [elementsForSide,sidesForElement,Tsides,nOfInteriorSides,Ve,Ls,normalVectors,XmidVolumes,XmidSides] = FVpreprocess(X,T);
 nOfVolumes=length(Ve); nOfSides=length(Ls); nOfExternalSides=nOfSides-nOfInteriorSides;
 
-velocityAtNodes=1/norm([ux uy])*velocityFunction(X);
+velocityAtNodes=velocityFunction(X);
 velocitySides=(velocityAtNodes(Tsides(:,1),:)+velocityAtNodes(Tsides(:,2),:))/2;
 velocityDotNormals=velocitySides(:,1).*normalVectors(1,:)'+velocitySides(:,2).*normalVectors(2,:)';
 

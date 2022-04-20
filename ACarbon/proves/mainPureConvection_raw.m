@@ -2,7 +2,7 @@
 clear all, clc, close all
 
 %Problem data
-finalTime=500;
+finalTime=1000;
 numericalFnfunction=@numericalNormalFluxPureConvection;
 uInflow=0.1;
 
@@ -19,10 +19,10 @@ nu=1.e-9;
 
 L=@(q) q./(K*(qm-q));
 dL=@(q) qm./(K*(qm-q).^2);
-sigmaConstant = ((1-epse)/epse)*3*Dp*B/R;
+sigmaConstant = 0;%((1-epse)/epse)*3*Dp*B/R;
 alpha = Dp*B/R; beta=35*Dp/(R^2);
 
-nOfComponents=1; smoothedPlots=1;
+nOfComponents=1; smoothedPlots=0;
 
 load velocityAtNodesNref1.mat;
 %Faces information, etc
@@ -45,10 +45,10 @@ figure(1), hold on, plot(XmidSides(flowSides,1),XmidSides(flowSides,2),'r*',Xmid
 u=zeros(nOfComponents,nOfVolumes);
 
 mindx=sqrt(min(Ve)*2);
-dt=0.005*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)) %time step, for Courant(=velocity*dt/dx)<=1
+dt=0.0065*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)) %time step, for Courant(=velocity*dt/dx)<=1
 
 
-nOfTimeSteps=round(finalTime/dt);
+nOfTimeSteps=round(finalTime/dt)
 U=u(1:nOfVolumes); nStepsU=1;%round(nOfTimeSteps/10);
 nCompVe=repmat(Ve,nOfComponents,1);
 qb=zeros(nOfVolumes,1); qr=qb;
@@ -56,6 +56,9 @@ qb=zeros(nOfVolumes,1); qr=qb;
 %__________________________________________________________________________
 %Loop in time steps
 for n=1:nOfTimeSteps
+    if mod(n,500)==0
+        nOfTimeSteps - n
+    end
     sigma = sigmaConstant*((1-epsp)*rhoS+epsp*dL(qb));
     numericalNormalFluxes=zeros(nOfComponents,nOfVolumes,1);
     %Loop in internal sides
@@ -73,11 +76,13 @@ for n=1:nOfTimeSteps
     end
     %Update of value at volumes
     u = u - dt*numericalNormalFluxes./nCompVe +dt*sigma.*(L(qr)-u);
-    if mod(n,nStepsU)==0, U=[U;u(1,:)]; end
+    if mod(n,nStepsU*10)==0, U=[U;u(1,:)]; end
     u(u>uInflow)=uInflow; u(u<0)=0;
     cmL=u-L(qr);
     qr=qr+dt*(beta*(qb-qr)+10*alpha*cmL);
     qb=qb+dt*3*alpha*cmL;
+    
+    
     
 end
 
@@ -107,15 +112,16 @@ end
 
 %__________________________________________________________________________
 %Plots of the solution
+
 if smoothedPlots==0
-    for k=2:30:size(U,1)
+    for k=2:60:size(U,1)
         plotFVsolution(X,T,U(k,:),2), axis equal %, view(2), colorbar
         title(sprintf('t=%g',(k-1)*nStepsU*dt))
         kStep=(k-1)*nStepsU;
         if kStep<10, print(sprintf('plots/convection0%d',kStep),'-djpeg'), else, print(sprintf('plots/convection%d',kStep),'-djpeg'), end
     end
 else
-    for k=2:30:size(U,1)
+    for k=2:60:size(U,1)
         uNodes=computeNodesMeanValue(U(k,:),T);
         trisurf(T,X(:,1),X(:,2),uNodes), axis equal, shading interp %, view(2), colorbar
         title(sprintf('t=%g',(k-1)*nStepsU*dt))

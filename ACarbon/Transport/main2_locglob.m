@@ -7,7 +7,7 @@
 epse = 0.37; epsp = 0.8; 
 rhoS = 2.22e6; 
 K = 3.e-3; qm = 0.4;
-Dp=1.e-10;
+Dp=1.e-8;
 Kf = 0.6e-2; %0.6 cm/s
 B=Kf/(Dp*rhoS*(1-epsp));
 R=0.002;
@@ -36,7 +36,7 @@ C(:,1)=c(1:end-1);
 for n=1:nOfTimeSteps
     i=2:N+1;
     sigma = sigmaConstant*((1-epsp)*rhoS+epsp*dL(Qb(i,n)));
-    c(i)=c(i)+dt*(velocity*(c(i-1)-c(i))/dx+nu*(c(i-1)-2*c(i)+c(i+1))/(dx^2))+dt*sigma.*(L(QR(i,n))-c(i));
+    c(i)=c(i)+dt*(velocity*(c(i-1)-c(i))/dx+nu*(c(i)-c(i-1))/(dx))+dt*sigma.*(L(QR(i,n))-c(i));
     c(1)=c_ext; c(end)=c(end-2);
     C(:,n+1)=c(1:end-1);
     cmL=C(:,n)-L(QR(:,n));

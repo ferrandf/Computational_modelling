@@ -27,7 +27,7 @@ T = m1.Elements; T = T';
 
 
 figure(2), clf
-PlotMesh(T,X,typeOfElement,'k-');
+PlotMesh_lap(T,X,typeOfElement,'k-');
 
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
@@ -76,11 +76,11 @@ figure(3)
 PlotNodalField(u,X,T), title('FEM solution')
 [Xpg,Fgp] = gradientElementalField(u,X,T,theReferenceElement);
 figure(4)
-PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(Xpg(:,1),Xpg(:,2),Fgp(:,1),Fgp(:,2),'LineWidth',2), hold off
+PlotMesh_lap(T,X,typeOfElement,'k-'); hold on, quiver(Xpg(:,1),Xpg(:,2),Fgp(:,1),Fgp(:,2),'LineWidth',2), hold off
 %Gradient smoothing (L2 projection of the gradient onto de FE space)
 [ux,uy] = computeGradientSmoothing(u,X,T,theReferenceElement);
 figure(5)
-PlotMesh(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth',2), hold off %quiver plots the arrows
+PlotMesh_lap(T,X,typeOfElement,'k-'); hold on, quiver(X(:,1),X(:,2),ux,uy,'LineWidth',2), hold off %quiver plots the arrows
 
 %Streamlines
 Tboundary = connectivityMatrixBoundary(T,typeOfElement);
