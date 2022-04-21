@@ -25,8 +25,8 @@ for n = 1:parameter.nSteps
     %Model
     [cellinfo] = Transport_actin_single(cellinfo,parameter); %computes density of actin: rhoF
     [cellinfo] = Transport_M_single(cellinfo,parameter); %computes density of myosin: rhoM. together we have K rho = f 
-    [cellinfo] = adhesion_dynamic(cellinfo,parameter); %adhesion term.
-    
+    %[cellinfo] = adhesion_dynamic(cellinfo,parameter); %adhesion term.
+    %[cellinfo] = chi(cellinfo,parameter);
     
     %Tension
     [f,~,~] = post_tension_actin(parameter,cellinfo);
