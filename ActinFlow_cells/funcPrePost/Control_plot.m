@@ -14,6 +14,9 @@ xlabel('t [min]'); ylabel('Density [-]'); hold on
     lgd = legend('Actin fiber', 'Attached Myosin','Location','northeast');
     lgd.FontSize = 8;
 
+    
+
+
 %----------PLOT VELOCITY ALONG TIME (PER NODE)---------------------
 
 subplot(2,2,2,'fontsize',16);
@@ -77,6 +80,14 @@ subplot(1,3,3,'fontsize',16);
 xlabel('x [\mum]'); ylabel('Tension [s]'); hold on
 plot(xx,tension_actin(:,end),'k','LineWidth',2); 
 
+%-----------PLOT ADHESION DENSITY -----------------------------------
+
+figure(10)
+xlabel('t [min]'); ylabel('Density [-]'); hold on
+plot(tt,cellDensdataAdh(1,:),'k'); hold on;
+plot(tt,cellDensdataAdh(end,:),'b');
+
+
 
 %----------------SAVING FIGURES AND PARAMETERS------------------------------
 
@@ -85,4 +96,5 @@ Cname = string('Cell_migration');
 saveas(hfig,char(Cname + string('_time')),'svg');
 saveas(hfig2,char(Cname + string('_space')),'svg');
 
-save(char(Cname+string('.mat')),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'RSDensdata', 'cellDensdataG', 'cellDensdatam', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','chargeDensdata','memTension')
+%save(char(Cname+string('.mat')),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'RSDensdata', 'cellDensdataG', 'cellDensdatam', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','chargeDensdata','memTension')
+save(char(Cname),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'cellDensdataG', 'cellDensdatam', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','chargeDensdata','memTension')

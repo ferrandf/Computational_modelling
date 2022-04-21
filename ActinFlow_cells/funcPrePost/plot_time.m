@@ -11,6 +11,8 @@ tension_actin(:,parameter.step) = f;
 cellxcoordsdata(1:(cellinfo{1}.meshparam.Nnodes), parameter.step) = cellinfo{1}.meshparam.X(1:end);
 % Rho  
 cellDensdata(1:(cellinfo{1}.meshparam.Nnodes), parameter.step) = cellinfo{1}.meshparam.DOFrho_vec;
+%Adhesion
+cellDensdataAdh(1:(cellinfo{1}.meshparam.Nnodes),parameter.step) = cellinfo{1}.meshparam.DOFadh_vec;
 % Data for cell velocity in lab frame
 velocitydata(1:(cellinfo{1}.meshparam.Nnodes), parameter.step) = cellinfo{1}.meshparam.DOFv_vec(1:end);
 % Data for cell velocity in cell frame
