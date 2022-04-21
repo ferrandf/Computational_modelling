@@ -20,10 +20,16 @@ parameter.eta       = 0.5;
 
 %new parameters for the adhesion part:
 
-parameters.Da = 0.2;
-parameters.gamma = 1/150;
-parameters.Sa = 1/50;
+parameter.Da = 0.2;
+parameter.gamma = 1/150;
+parameter.Sa = 1/50;
+parameter.adho = 1;
 
+%parameters for zeta:
+
+parameter.zeta_small = 0.2;
+parameter.zetao = 0.2;
+parameter.Azeta = 0.8;
 
 %---------------------%
 

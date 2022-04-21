@@ -28,7 +28,8 @@ meshout.DOFvM = meshout.Nnodes;     %velocity from lab frame
 meshout.DOFwM = meshout.Nnodes;     %velocity from cell frame
 meshout.DOFv_aleM = meshout.Nnodes; %ALE velocity
 meshout.DOFrhoM = meshout.Nnodes;   %tranport of rho
-
+meshout.DOFadh = meshout.Nnodes; %adhesion term
+meshout.DOFzeta = meshout.Nnodes; %zeta term
 %------------------------------------------------------------------------
 % Definition of solution vectors at current time-> FOR PLOTTING
 meshout.DOFv_ale_vec =  zeros(meshout.DOFv_ale,1);
@@ -37,6 +38,8 @@ meshout.DOFw_vec =  zeros(meshout.DOFw,1);
 
 meshout.DOFrho_vec =  zeros(meshout.DOFrho,1);
 meshout.DOFrho_vecM =  zeros(meshout.DOFrhoM,1);
+meshout.DOFadh_vec = zeros(meshout.DOFadh,1);
+meshout.DOFzeta_vec = zeros(meshout.DOFzeta,1);
 
 %--------------------------------------------------------------------
 % Definition of solution vectors at previous time-> FOR PLOTTING
@@ -46,6 +49,9 @@ meshout.DOFw_old = meshout.DOFw_vec;
 
 meshout.DOFrho_old = meshout.DOFrho;
 meshout.DOFrho_oldM = meshout.DOFrhoM;
+
+meshout.DOFadh_old = meshout.DOFadh;
+meshout.DOFzeta_old = meshout.DOFzeta;
 
 %--------------------------------------------------------------------
 % Initial condition for rho
@@ -59,6 +65,8 @@ rhoprofile = rhoprofile * 0 + 1.;
 meshout.DOFrho_vec(1:meshout.DOFrho) = rhoprofile;
 meshout.DOFrho_vecM(1:meshout.DOFrhoM) = rhoprofile;
 
+meshout.DOFadh_vec(1:meshout.DOFadh) = parameter.adho;
+meshout.DOFzeta_vec(1:meshout.DOFzeta) = parameter.zetao;
 
 %--------------------------------------------------------------------
 % Charge data
