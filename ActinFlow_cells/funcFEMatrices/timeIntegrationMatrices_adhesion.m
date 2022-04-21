@@ -1,4 +1,4 @@
-function [A,B] = timeIntegrationMatrices_adhesion(parameter,cellinfo,M,K,kd,kp,diff)
+function [A,B] = timeIntegrationMatrices_adhesion(parameter,cellinfo,M,K,Da,gamma)
 
 theta = parameter.theta;
 Dt = parameter.Dt;
@@ -12,7 +12,7 @@ nNonZero = nNodes*3*5;
 A = spalloc(ndof,ndof,nNonZero); 
 B = spalloc(ndof,ndof,nNonZero); 
 
-aux_11 = diff*K ; 
+aux_11 = Da*K ; 
 
 A(ind,ind) = M_dt + theta*aux_11; 
 B(ind,ind) = M_dt - (1-theta)*aux_11; 
