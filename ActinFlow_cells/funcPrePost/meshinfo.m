@@ -15,6 +15,7 @@ meshout.indR = meshout.ind;         %R-index
 meshout.indS = meshout.Nnodes+1:2*meshout.Nnodes; %S-index
 meshout.p = 1;                      %Polynomial degree                             
 meshout.ngaus = 2 ;                 %Number of gaus points
+meshout.extra_domain = linspace(parameter.exdom(1),parameter.exdom(2),meshout.Nnodes*100)';
 
 %-------------------------------------------------------------------------
 % Definition of degrees of freedom
@@ -22,16 +23,13 @@ meshout.ngaus = 2 ;                 %Number of gaus points
 meshout.DOFv = meshout.Nnodes;      %velocity from lab frame
 meshout.DOFw = meshout.Nnodes;      %velocity from cell frame
 meshout.DOFv_ale = meshout.Nnodes;  %ALE velocity
-meshout.DOFrho = meshout.Nnodes;    %transport of rho
+meshout.DOFrho = meshout.Nnodes;    %tranport of rho
 
 meshout.DOFvM = meshout.Nnodes;     %velocity from lab frame
 meshout.DOFwM = meshout.Nnodes;     %velocity from cell frame
 meshout.DOFv_aleM = meshout.Nnodes; %ALE velocity
 meshout.DOFrhoM = meshout.Nnodes;   %tranport of rho
-
-
-meshout.DOFadh = meshout.Nnodes; %adhesion part.
-
+meshout.DOFadh = meshout.Nnodes; %adhesion term
 %------------------------------------------------------------------------
 % Definition of solution vectors at current time-> FOR PLOTTING
 meshout.DOFv_ale_vec =  zeros(meshout.DOFv_ale,1);
@@ -41,6 +39,7 @@ meshout.DOFw_vec =  zeros(meshout.DOFw,1);
 meshout.DOFrho_vec =  zeros(meshout.DOFrho,1);
 meshout.DOFrho_vecM =  zeros(meshout.DOFrhoM,1);
 meshout.DOFadh_vec = zeros(meshout.DOFadh,1);
+
 
 %--------------------------------------------------------------------
 % Definition of solution vectors at previous time-> FOR PLOTTING
@@ -65,10 +64,7 @@ rhoprofile = rhoprofile * 0 + 1.;
 meshout.DOFrho_vec(1:meshout.DOFrho) = rhoprofile;
 meshout.DOFrho_vecM(1:meshout.DOFrhoM) = rhoprofile;
 
-
-%initial condition for adhesion:
-
-meshout.DOFadh_vec(1:meshout.DOFadh) = 1;
+meshout.DOFadh_vec(1:meshout.DOFadh) = parameter.adho;
 
 %--------------------------------------------------------------------
 % Charge data

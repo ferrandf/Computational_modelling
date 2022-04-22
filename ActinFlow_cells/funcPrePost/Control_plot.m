@@ -10,8 +10,8 @@ tt = timedata/60;
 subplot(2,2,1,'fontsize',16);
 xlabel('t [min]'); ylabel('Density [-]'); hold on
 
-    plot(tt,cellDensdata(1,:),'k',tt,cellDensdataM(1,:),'b',tt,cellDensdata(end,:),'k--',tt,cellDensdataM(end,:),'b--','LineWidth',2); hold on;
-    lgd = legend('Actin fiber', 'Attached Myosin','Location','northeast');
+    plot(tt,cellDensdata(1,:),'k',tt,cellDensdataM(1,:),'b',tt,cellDensdataAdh(1,:),'r',tt,cellDensdata(end,:),'k--',tt,cellDensdataM(end,:),'b--',tt,cellDensdataAdh(end,:),'r--','LineWidth',2); hold on;
+    lgd = legend('Actin fiber', 'Attached Myosin','Adhesion','Location','northeast');
     lgd.FontSize = 8;
 
     
@@ -30,9 +30,9 @@ yyaxis right
 ax=gca;
 ax.YColor='b';
 
-semilogy(tt,vpol(1,:),'b--',tt,velocitydata(1,:),'b-.',tt,wdata(1,:),'b:','LineWidth',2); 
+semilogy(tt,vpol(1,:),'m--',tt,velocitydata(1,:),'b-.',tt,wdata(1,:),'c:','LineWidth',2); 
 
-lgd = legend('Velocity-Polymerisation', 'Velocity-Lab frame','Velocity-Cell frame', 'Cell Velocity','Location','northeast');
+lgd = legend('Velocity-Polymerisation', 'Velocity-Lab frame','Velocity-Cell frame','Location','northeast');
 lgd.FontSize = 8;
 
 %----------PLOT TENSION ALONG TIME (PER NODE)---------------------
@@ -65,8 +65,8 @@ xx = cellinfo{1}.meshparam.X;
 subplot(1,3,1,'fontsize',16);
 xlabel('x [\mum]'); ylabel('Density [-]'); hold on
 
-    plot(xx,cellDensdata(:,end),'k',xx,cellDensdataM(:,end),'b', 'LineWidth',2);
-    lgd = legend('Actin fiber', 'Attached Myosin','Location','northeast');
+    plot(xx,cellDensdata(:,end),'k',xx,cellDensdataM(:,end),'b',xx,cellDensdataAdh(:,end),'r', 'LineWidth',2);
+    lgd = legend('Actin fiber', 'Attached Myosin','Adhesion','Location','northeast');
     lgd.FontSize = 8;
 
 %----------PLOT VELOCITY ALONG SPACE (PER NODE)---------------------
@@ -80,12 +80,25 @@ subplot(1,3,3,'fontsize',16);
 xlabel('x [\mum]'); ylabel('Tension [s]'); hold on
 plot(xx,tension_actin(:,end),'k','LineWidth',2); 
 
-%-----------PLOT ADHESION DENSITY -----------------------------------
+%-----------PLOT ADHESION DENSITY along time and space -----------------------------------
 
-figure(10)
+hfig3 = figure(6); hold on;
+pos = get(hfig3,'position');
+set(hfig3,'position',pos.*[0.1 0.1 3.2 0.9])
+
+xx = cellinfo{1}.meshparam.X;
+
+
+subplot(1,2,1,'fontsize',16);
+xlabel('x [\mum]'); ylabel('Density [-]'); hold on
+
+    plot(xx,cellDensdataAdh(:,end),'r','LineWidth',2);
+    lgd = legend('Adhesion','Location','northeast');
+    lgd.FontSize = 8;
+
+subplot(1,2,2, 'fontsize',16);
 xlabel('t [min]'); ylabel('Density [-]'); hold on
-plot(tt,cellDensdataAdh(1,:),'k'); hold on;
-plot(tt,cellDensdataAdh(end,:),'b');
+    plot(tt,cellDensdataAdh(1,:),'k',tt,cellDensdataAdh(end,:),'r--','LineWidth',2);
 
 
 
@@ -97,4 +110,4 @@ saveas(hfig,char(Cname + string('_time')),'svg');
 saveas(hfig2,char(Cname + string('_space')),'svg');
 
 %save(char(Cname+string('.mat')),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'RSDensdata', 'cellDensdataG', 'cellDensdatam', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','chargeDensdata','memTension')
-save(char(Cname),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'cellDensdataG', 'cellDensdatam', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','chargeDensdata','memTension')
+save(char(Cname),'timedata', 'cellxcoordsdata', 'cellDensdata', 'cellDensdataM', 'cellDensdataAdh', 'wdata', 'parameter', 'cellinfo','cell_length_info','velocitydata','vpol','tension_actin','memTension')
