@@ -27,9 +27,9 @@ parameter.adho = 1;
 
 %parameters for zeta:
 
-parameter.zeta_small = 0.2;
+parameter.zeta_small = 0.1;
 parameter.zetao = 0.2;
-parameter.Azeta = 0.8;
+parameter.Azeta = 1.7;
 
 %---------------------%
 

@@ -10,7 +10,7 @@ tt = timedata/60;
 subplot(2,2,1,'fontsize',16);
 xlabel('t [min]'); ylabel('Density [-]'); hold on
 
-    plot(tt,cellDensdata(1,:),'k',tt,cellDensdataM(1,:),'b',tt,cellDensdata(end,:),'k--',tt,cellDensdataM(end,:),'b--',tt,cellDensdataAdh(1,:),'r',tt,cellDensdataAdh(end,:),'r--','LineWidth',2); hold on;
+    plot(tt,cellDensdata(1,:),'k',tt,cellDensdataM(1,:),'b',tt,cellDensdataAdh(1,:),'r',tt,cellDensdata(end,:),'k--',tt,cellDensdataM(end,:),'b--',tt,cellDensdataAdh(end,:),'r--','LineWidth',2); hold on;
     lgd = legend('Actin fiber', 'Attached Myosin','Adhesion','Location','northeast');
     lgd.FontSize = 8;
 
@@ -30,7 +30,7 @@ yyaxis right
 ax=gca;
 ax.YColor='b';
 
-semilogy(tt,vpol(1,:),'b--',tt,velocitydata(1,:),'b-.',tt,wdata(1,:),'c:','LineWidth',2); 
+semilogy(tt,vpol(1,:),'m--',tt,velocitydata(1,:),'b-.',tt,wdata(1,:),'c:','LineWidth',2); 
 
 lgd = legend('Velocity-Polymerisation', 'Velocity-Lab frame','Velocity-Cell frame','Location','northeast');
 lgd.FontSize = 8;

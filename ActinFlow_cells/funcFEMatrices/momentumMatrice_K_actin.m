@@ -21,8 +21,10 @@ for ielem = 1:nElem
     % Te: global number of the nodes in the current element
     Te = T(ielem,:);
     Xe = X(Te,:);
+    adh_vec = [cellinfo{1}.meshparam.DOFadh_vec(Te(1,1),1)...
+        cellinfo{1}.meshparam.DOFadh_vec(Te(1,2),1)];
     % Element matrices, source terms and derivatives of residuals
-    [Kfe,Kve] = EleMat_actin(Xe,cellinfo,parameter, N, Nx,w);
+    [Kfe,Kve] = EleMat_actin(Xe,cellinfo,parameter, N, Nx,w,adh_vec);
     % Assembly  
 
     r = [ielem ielem+1];
@@ -33,14 +35,13 @@ end
 K = Kv+Kf;
 
 %------------DEFINITION OF ELEMENT MATRICIES-----------------------------
-function  [Kfe,Kve] = EleMat_actin(Xe,cellinfo,parameter, N, Nx,w)
+function  [Kfe,Kve] = EleMat_actin(Xe,cellinfo,parameter, N, Nx,w,adh_vec)
 nen=cellinfo{1}.meshparam.nen;
 ngaus = cellinfo{1}.meshparam.ngaus ; 
 Kfe  = zeros(nen,nen);
 Kve  = zeros(nen,nen);
 visc = parameter.visc;
-eta = parameter.eta;
-eta_x = eta*ones(ngaus,1);
+
    
 for ig = 1:ngaus
     N_ig    = N(ig,:);
@@ -49,8 +50,10 @@ for ig = 1:ngaus
     dvolu = w(ig)*det(Jacob);
     res = Jacob\Nxi_ig;
     nx = res(1,:);
-   
+    adh_ig = N_ig*adh_vec';
     
-    Kfe = Kfe - eta_x(ig)*(N_ig'*N_ig)*dvolu;
+    zeta = parameter.zeta_small + (2*parameter.zetao*(adh_ig/parameter.Azeta)^2)/(1+(adh_ig/parameter.Azeta)^2);
+    
+    Kfe = Kfe - zeta*(N_ig'*N_ig)*dvolu;
     Kve = Kve - visc*(nx'*nx)*dvolu;
 end
