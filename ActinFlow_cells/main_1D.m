@@ -22,11 +22,13 @@ for n = 1:parameter.nSteps
     [cellinfo] = ALE_meshvel(cellinfo, parameter); %change in the coordinate system. (compute the velocity of the cell and w = vel at the cell frame) because
     % in the convective term, we need w, not v. (w = v-vcell)
     
+    
     %Model
     [cellinfo] = Transport_actin_single(cellinfo,parameter); %computes density of actin: rhoF
     [cellinfo] = Transport_M_single(cellinfo,parameter); %computes density of myosin: rhoM. together we have K rho = f 
-    %[cellinfo] = adhesion_dynamic(cellinfo,parameter); %adhesion term.
-    %[cellinfo] = chi(cellinfo,parameter);
+    [cellinfo] = adhesion_dynamics(cellinfo,parameter); %adhesion term.
+    
+    
     
     %Tension
     [f,~,~] = post_tension_actin(parameter,cellinfo);
