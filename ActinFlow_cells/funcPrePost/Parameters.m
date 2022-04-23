@@ -7,9 +7,9 @@
 % parameter.diff = 0.15;
 
 %pack1:
-parameter.visc      = 10;    
+parameter.visc      = 10;
 parameter.chi       = 0.05;
-parameter.eta       = 0.5;
+parameter.eta       = 0.1;
 
 % %pack2:
 % parameter.visc      = 5;    
@@ -29,7 +29,11 @@ parameter.adho = 1;
 
 parameter.zeta_small = 0.1;
 parameter.zetao = 0.2;
-parameter.Azeta = 1.7;
+parameter.Azeta = 1.5;
+parameter.z_r_end = 5;
+parameter.zeta_m = (parameter.z_r_end - parameter.zetao)/500; %computes zetao(x) = mx + b
+parameter.zeta_b = parameter.zetao;
+
 
 %---------------------%
 
@@ -74,7 +78,7 @@ parameter.t_chemotaxis = 450;
 
 parameter.theta = 1/2;
 parameter.Dt = 0.4;
-parameter.tEnd = 300; 
+parameter.tEnd = 600; 
 parameter.nSteps= parameter.tEnd / parameter.Dt;  
 parameter.nDib = 10;
 parameter.t = 0:parameter.Dt:parameter.tEnd;
@@ -84,6 +88,8 @@ parameter.L0 = 10;  %Initial length
 parameter.dom = [-parameter.L0/2,parameter.L0/2];                  %Initial domain
 parameter.nx = 21;                       %Number of elements
 parameter.Lpre = parameter.L0 * buffer; %Guathier give a buffer area of 50%
+
+parameter.exdom = [-500,500];
 
 %-----------------------------------------------------------------------
 % On-line plotting Parameter

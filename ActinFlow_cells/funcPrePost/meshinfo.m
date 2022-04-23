@@ -15,7 +15,7 @@ meshout.indR = meshout.ind;         %R-index
 meshout.indS = meshout.Nnodes+1:2*meshout.Nnodes; %S-index
 meshout.p = 1;                      %Polynomial degree                             
 meshout.ngaus = 2 ;                 %Number of gaus points
-meshout.extra_domain = linspace(parameter.exdom(1),parameter.exdom(2),meshout.Nnodes*100)';
+%meshout.extra_domain = linspace(parameter.exdom(1),parameter.exdom(2),meshout.Nnodes*1000)';
 
 %-------------------------------------------------------------------------
 % Definition of degrees of freedom
