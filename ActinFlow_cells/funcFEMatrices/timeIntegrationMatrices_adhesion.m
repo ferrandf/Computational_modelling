@@ -2,7 +2,7 @@ function [A,B] = timeIntegrationMatrices_adhesion(parameter,cellinfo,M,K,Da,gamm
 
 theta = parameter.theta;
 Dt = parameter.Dt;
-ndof = cellinfo{1}.meshparam.DOFrho;
+ndof = cellinfo{1}.meshparam.DOFadh;
 nNodes = parameter.nx+1;
 ind = cellinfo{1}.meshparam.ind;
 

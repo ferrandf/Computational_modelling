@@ -21,14 +21,14 @@ parameter.eta       = 0.1;
 %new parameters for the adhesion part:
 
 parameter.Da = 0.2;
-parameter.gamma = 1/150;
+parameter.gamma = 1/150; %1/150;
 parameter.Sa = 1/50;
 parameter.adho = 1;
 
 %parameters for zeta:
 
 parameter.zeta_small = 0.1;
-parameter.zetao = 0.2;
+parameter.zetao = 0.04;
 parameter.Azeta = 1.5;
 parameter.z_r_end = 5;
 parameter.zeta_m = (parameter.z_r_end - parameter.zetao)/500; %computes zetao(x) = mx + b

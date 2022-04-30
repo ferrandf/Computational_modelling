@@ -53,11 +53,17 @@ for ig = 1:ngaus
     res = Jacob\Nxi_ig;
     nx = res(1,:);
     adh_ig = N_ig*adh_vec';
-    zeta_zero_ig = N_ig * zeta_zero_vec';
-    
+    zeta_zero_ig = N_ig * zeta_zero_vec'; %zeta in the integration points
+   
+
     zeta = parameter.zeta_small + (2*zeta_zero_ig*(adh_ig/parameter.Azeta)^2)/(1+(adh_ig/parameter.Azeta)^2);
-    %zeta = parameter.zeta_small + (2*zeta_zero_ig)/(1+(adh_ig/parameter.Azeta)^2);
     
+    %Other definitions of the adhesion friction coeff:
+    
+    %zeta = parameter.zeta_small + (2*zeta_zero_ig)/(1+(adh_ig/parameter.Azeta)^2);
+    %zeta = parameter.eta;
     Kfe = Kfe - zeta*(N_ig'*N_ig)*dvolu;
     Kve = Kve - visc*(nx'*nx)*dvolu;
 end
+
+
