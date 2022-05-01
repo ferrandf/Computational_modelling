@@ -28,9 +28,9 @@ parameter.adho = 1;
 %parameters for zeta:
 
 parameter.zeta_small = 0.1;
-parameter.zetao = 0.04;
-parameter.Azeta = 1.5;
-parameter.z_r_end = 5;
+parameter.zetao = 0.2;
+parameter.Azeta = 1;
+parameter.z_r_end = 15;
 parameter.zeta_m = (parameter.z_r_end - parameter.zetao)/500; %computes zetao(x) = mx + b
 parameter.zeta_b = parameter.zetao;
 

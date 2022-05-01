@@ -80,7 +80,7 @@ subplot(1,3,3,'fontsize',16);
 xlabel('x [\mum]'); ylabel('Tension [s]'); hold on
 plot(xx,tension_actin(:,end),'k','LineWidth',2); 
 
-%-----------PLOT ADHESION DENSITY along time and space -----------------------------------
+%-----------PLOT DENSITY along space -----------------------------------
 figure(6)
 xx = cellinfo{1}.meshparam.X;
 xlabel('x [\mum]'); ylabel('Density [-]'); hold on
@@ -88,25 +88,6 @@ xlabel('x [\mum]'); ylabel('Density [-]'); hold on
     plot(xx,cellDensdata(:,end),'k',xx,cellDensdataM(:,end),'b',xx,cellDensdataAdh(:,end),'r', 'LineWidth',2);
     lgd = legend('Actin fiber', 'Attached Myosin','Adhesion','Location','northeast');
     lgd.FontSize = 8;
-
-% hfig3 = figure(6); hold on;
-% pos = get(hfig3,'position');
-% set(hfig3,'position',pos.*[0.1 0.1 3.2 0.9])
-% 
-% xx = cellinfo{1}.meshparam.X;
-% 
-% 
-% subplot(1,2,1,'fontsize',16);
-% xlabel('x [\mum]'); ylabel('Density [-]'); hold on
-% 
-%     plot(xx,cellDensdataAdh(:,end),'r','LineWidth',2);
-%     lgd = legend('Adhesion','Location','northeast');
-%     lgd.FontSize = 8;
-% 
-% subplot(1,2,2, 'fontsize',16);
-% xlabel('t [min]'); ylabel('Density [-]'); hold on
-%     plot(tt,cellDensdataAdh(1,:),'k',tt,cellDensdataAdh(end,:),'r--','LineWidth',2);
-
 
 
 %----------------SAVING FIGURES AND PARAMETERS------------------------------
