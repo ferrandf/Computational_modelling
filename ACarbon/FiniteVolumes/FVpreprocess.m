@@ -47,7 +47,7 @@ nOfVolumes=size(T,1);
 Ve=zeros(1,nOfVolumes);
 for e=1:nOfVolumes
     Xe=X(T(e,:),:);
-    Ve(e)=det([Xe(2,:)-Xe(1,:);Xe(3,:)-Xe(1,:)])/2;;
+    Ve(e)=det([Xe(2,:)-Xe(1,:);Xe(3,:)-Xe(1,:)])/2;
 end
 
 allSides=[infoSides.intSides(:,1:2);infoSides.extSides];

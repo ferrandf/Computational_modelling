@@ -83,9 +83,9 @@ contourPlot(phi,X,T)
 addPlotBoundary(X,Tboundary)
 
 % %Comparison with analytical solution (if available)
-% figure(11)
-% %[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
-% PlotNodalField(analytical(X),X,T), title('Analytical solution')
-% L2error=computeL2error(u,X,T,theReferenceElement)
+figure(11)
+%[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
+PlotNodalField(analytical(X),X,T), title('Analytical solution')
+L2error=computeL2error(u,X,T,theReferenceElement)
 
 

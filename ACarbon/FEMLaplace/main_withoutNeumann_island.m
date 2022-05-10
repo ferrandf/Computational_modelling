@@ -9,17 +9,16 @@ nOfElementNodes = size(theReferenceElement.N,2);
 %figure(1), drawReferenceElement(theReferenceElement);
 %Mesh: regular mesh in a rectangular domain [0,1]x[0,1]
 nOfElem1d=20; %20
-load('river_island.mat')
+load('river_island2.mat')
 figure(2), clf
 PlotMesh(T,X,typeOfElement,'k-');
-
 
 %Definition of Dirichlet boundary conditions on {x=0}U{y=0}U{y=1}
 x = X(:,1); y = X(:,2); tol=1.e-10;
 Tboundary = connectivityMatrixBoundary(T,typeOfElement);
 nodesCCD = Tboundary(:,1);
-%nodesCCD = find(abs(sqrt(x.^2+y.^2)-2)<tol); %Nodes on the Dirichlet boundary
-hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); hold off
+wellpoint = find(abs(x - 4.177456591)<0.000001)
+hold on, plot(x(nodesCCD),y(nodesCCD),'bo','MarkerSize',16); plot(x(wellpoint),y(wellpoint),'ro','MarkerSize',16); hold off
 uCCD=DirichletValue_island(X(nodesCCD,:)); %is a vector with the prescribed values at the nodes
 
 
@@ -81,8 +80,6 @@ addPlotBoundary(X,Tboundary)
 % %[Xfine,Tfine] = CreateMesh(typeOfElement,nOfElementNodes,[0,1,0,1],40,40);
 % PlotNodalField(analytical(X),X,T), title('Analytical solution')
 % L2error=computeL2error(u,X,T,theReferenceElement)
-
-
-  wellpoint = find(abs(x + 4.39583333333)<tol);
-%  R = 6/u(wellpoint);
+uwell = u(wellpoint)
+R = 6/u(wellpoint)
 % 

@@ -12,10 +12,10 @@ nOfComponents=1; smoothedPlots=0;
 %Mesh (X: nodal coordinates, T: connectivity matrix defining the elements/volumes)
 nRef=1; 
 %[X,T] = createRectangleMesh(1,3,0,10,0,0.5,20*nRef,nRef);
-typeOfElement = 1;
+typeOfElement = 0;
 nOfElementNodes = 3;
 nOfElem1d = 20;
-[X,T] = createRectangleMesh(typeOfElement,nOfElementNodes,0,12,0,15,nOfElem1d,nOfElem1d); %Definition of the mesh
+[X,T] = createRectangleMesh(typeOfElement,nOfElementNodes,0,10,0,0.5,nOfElem1d,nOfElem1d); %Definition of the mesh
 
 figure(1), plotMesh(X,T)
 %Faces information, etc
@@ -36,7 +36,7 @@ figure(1), hold on, plot(XmidSides(flowSides,1),XmidSides(flowSides,2),'r*',Xmid
 u=ones(nOfComponents,nOfVolumes);
 
 mindx=sqrt(min(Ve)*2);
-dt=0.6*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
+dt=0.4*mindx/max(sqrt(velocitySides(:,1).^2+velocitySides(:,2).^2)); %time step, for Courant(=velocity*dt/dx)<=1
 
 %Try also dt=0.5*...  and dt=0.6*...
 

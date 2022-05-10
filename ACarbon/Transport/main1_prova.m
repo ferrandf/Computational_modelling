@@ -6,8 +6,8 @@
 
 %BAX 1500
 epse = 0.37; epsp = 0.8; rhoS = 2.22e6; K = 3.e-3; qm = 0.4; %Porosity constants, Laumuir's isoterm constants.
-Dp=[1.e-8]; %Difusion intraparticular
-B=[1.35, 3];  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
+Dp=[1.e-9, 1.e-8, 1.e-7]; %Difusion intraparticular
+B=[0.5, 1.35, 3];  %The constant related to the boundary condition (B.C) mass transfer. (small B, absorb slowly, big B, faster absortion)
 R=0.002; %Radius of the bullet.
 
 
@@ -38,9 +38,11 @@ for i = 1:length(Dp)
         end
 
         ts = [0:nOfTimeSteps]*dt;
-        figure(k)
-        plot(ts,[qR,qb],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
-        
+        %fig = figure(k);
+        %plot(ts,[qR,qb],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
+        %SaveFileName=strcat('load_Dp_', num2str(Dp(i)), '_B_', num2str(B(j)));
+        %saveas(fig,SaveFileName,'png')
+
         Tfinal = 100;
         dt = 0.01;
         nOfTimeStepsUnloading = round(Tfinal/dt);
@@ -58,14 +60,18 @@ for i = 1:length(Dp)
         
         
         ts = [0:nOfTimeStepsUnloading]*dt;
-        figure(k+1)
-        plot(ts,[qRU,qbU],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
-        
+        %fig = figure(k+1);
+        %plot(ts,[qRU,qbU],'-'), legend('qr','qb'),xlabel('t'), ylabel('q'),title("Dp = " + Dp(i) + " B = " + B(j))
+        %SaveFileName=strcat('unload_Dp_', num2str(Dp(i)), '_B_', num2str(B(j)));
+        %saveas(fig,SaveFileName,'png')
         ts = [0:nOfTimeSteps + nOfTimeStepsUnloading+1]*dt;
-        figure(k+2)
+        
+        fig = figure(k+2);
         qRT = [qRLoading;qRU];
         qbT = [qbLoading;qbU];
-        plot(ts,[qRT,qbT],'-'), legend('qr', 'qb'),xlabel('t'), ylabel('q'), title("Dp = " + Dp(i) + " B = " + B(j))
+        plot(ts,[qRT,qbT],'-','LineWidth',8), legend('qr', 'qb'),xlabel('t'), ylabel('q'), title("Dp = " + Dp(i) + " B = " + B(j))
+        
+        saveas(fig,strcat('both_Dp_', num2str(Dp(i)), '_B_', num2str(B(j)*100)),'png')
         k = k+3;
 
     end

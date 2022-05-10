@@ -24,7 +24,7 @@ N=50; %number of segments
 dx = canisterSize/N;
 c=zeros(N+2,1); c(1)=c_ext; %including a fictitius node for the right boundary (homogeneous Neumann)
 
-Tfinal=100; dt=0.01; fprintf('\nCourant number=%0.2f\n',velocity*dt/dx); %Final time and step for convection-diffusion
+Tfinal=100; dt=0.0001; fprintf('\nCourant number=%0.2f\n',velocity*dt/dx); %Final time and step for convection-diffusion
 %Tfinal=30000; dt=0.1; %Final time and time step for AC filter
 
 nOfTimeSteps=round(Tfinal/dt);
@@ -46,7 +46,8 @@ for n=1:nOfTimeSteps
 end
 x=0:dx:canisterSize;
 tplots=1:round(nOfTimeSteps/10):nOfTimeSteps+1;
-figure(1), plot(x,C(:,tplots)); title("Dp = " + Dp + " dx = " + dx + " dt = " + dt), xlabel('x'), ylabel('c')
+fig = figure(1); plot(x,C(:,tplots)); title("dt = " + dt), xlabel('x'), ylabel('c')
+saveas(fig,'centered_0001','png')
 % figure(2), plot(x,Qb(:,tplots)); title('qb')
 % figure(3), plot(x,QR(:,tplots)); title('qR')
 

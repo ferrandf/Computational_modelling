@@ -30,7 +30,7 @@ parameter.adho = 1;
 parameter.zeta_small = 0.1;
 parameter.zetao = 0.2;
 parameter.Azeta = 1;
-parameter.z_r_end = 15;
+parameter.z_r_end = 40;
 parameter.zeta_m = (parameter.z_r_end - parameter.zetao)/500; %computes zetao(x) = mx + b
 parameter.zeta_b = parameter.zetao;
 
